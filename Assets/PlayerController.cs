@@ -6,34 +6,45 @@ using UnityEngine.UI;
 public class PlayerController : MonoBehaviour
 {
     public float speed;
+   // public float startspeed;
     public float jumpforce;
     Rigidbody rb;
     public Text gameover;
-    public bool isTrue=false;
+    public bool isTrue;
     public float score;
     public Text scoreText;
-    public float tempscore;
-    public int n=1;
-   
+    public Transform Rotation;
+    Animation animator;
+    public  float trackedDistance;
+    public float maxDistance;
+
+
     // bool isgrounded=true;
     // Start is called before the first frame update
     void Start()
     {
+        maxDistance = 50f;
         rb = GetComponent<Rigidbody>();
+        isTrue = false;
+        
+       // rotation = GetComponent<Transform>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (isTrue == false)
-        {
-            if (Input.GetKeyDown(KeyCode.Space))
+        
+            if (Input.GetKeyDown(KeyCode.Space)&&isTrue==false)
             {
                 Physics.gravity *= -1;
+           
+             //  transform.Rotate(-180f, 0f, 0f, Space.World);
+
+                
 
 
 
-                //rb.AddForce(Vector3.up * jumpforce);
+                rb.AddForce(Vector3.up * jumpforce);
 
             }
 
@@ -55,7 +66,7 @@ public class PlayerController : MonoBehaviour
             }*/
            
          
-        }
+        
           
        
     }
@@ -63,7 +74,20 @@ public class PlayerController : MonoBehaviour
     {
         if (isTrue == false)
         {
+            trackedDistance += speed*Time.fixedDeltaTime;
+
+           //speed = startspeed + Mathf.Floor(trackedDistance / 1000);
+           
+            if (trackedDistance>maxDistance)
+            {
+                speed = speed * 2;
+                maxDistance += 50;
+            }
             rb.velocity = new Vector3(speed, rb.velocity.y, rb.velocity.z);
+            
+               
+            
+           
         }
     }
     private void OnCollisionEnter(Collision collision)
@@ -72,6 +96,7 @@ public class PlayerController : MonoBehaviour
         {
             gameover.GetComponent<Text>().enabled = true;
             isTrue = true;
+           // animator.GetComponent<Animation>().enabled = false;
         }
     }
 }
