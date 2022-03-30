@@ -270,7 +270,7 @@ ModelImporter:
   - dd6e6df4cbc9d404487a32f64046edc3
   - 4139518455ef43646a256e2ddf25508c
   - ff9f545cddc6cca4abddee6cfefe9c00
-  importAnimation: 1
+  importAnimation: 0
   humanDescription:
     serializedVersion: 3
     human: []

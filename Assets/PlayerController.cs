@@ -17,6 +17,7 @@ public class PlayerController : MonoBehaviour
     Animation animator;
     public  float trackedDistance;
     public float maxDistance;
+    public string Myname="Keertana";
 
 
     // bool isgrounded=true;
@@ -26,8 +27,12 @@ public class PlayerController : MonoBehaviour
         maxDistance = 50f;
         rb = GetComponent<Rigidbody>();
         isTrue = false;
-        
-       // rotation = GetComponent<Transform>();
+        Debug.Log(PlayerPrefs.GetInt("score"));
+        PlayerPrefs.SetString("name", Myname);
+        Debug.Log(PlayerPrefs.GetString("name"));
+
+
+        // rotation = GetComponent<Transform>();
     }
 
     // Update is called once per frame
@@ -48,9 +53,13 @@ public class PlayerController : MonoBehaviour
 
             }
 
-            score = transform.position.x;
-            Mathf.Floor(score);
+            score = Mathf.Floor(transform.position.x);
+          //  Mathf.Floor(score);
             Debug.Log(score);
+        PlayerPrefs.SetFloat("Score",score);
+        
+       // PlayerPrefs.GetFloat("score");
+
             scoreText.text= score.ToString();
 
            /* while(tempscore<=20*n)
